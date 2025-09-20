@@ -2,17 +2,25 @@
 
 A modern React TypeScript application that converts real currencies (USD, COP, MXN) to fictional currency units: **Gansitos**, **Balatros**, and **Silksongs**.
 
-![Demo Screenshot](https://via.placeholder.com/800x400/667eea/ffffff?text=Currency+Converter+Demo)
+## 🌐 Live Demo
+
+**[View Live Application](https://cristianfonseca03.github.io/conversor/)**
+
+![Currency Converter Demo](https://cristianfonseca03.github.io/conversor/demo-screenshot.png)
+
+*The application features a modern interface with real-time exchange rates display and conversion to fictional currency units*
 
 ## ✨ Features
 
-- **Fixed Exchange Rates**: Uses standard fixed rates for USD, COP, and MXN conversion
-- **Fictional Currency Conversion**: Converts real money to custom units with proper breakdown
-- **Modern UI with Tailwind CSS**: Utility-first CSS framework for rapid development
-- **Responsive Design**: Mobile-first design that works on all device sizes
-- **Accessibility**: WCAG compliant with proper ARIA attributes and keyboard navigation
-- **Modern Tech Stack**: Built with React 19, TypeScript, Vite, and Tailwind CSS
-- **Automated Deployment**: GitHub Actions workflow for seamless deployment to GitHub Pages
+- **🎯 Real-time Exchange Rates Display**: Visual panel showing current conversion rates for all supported currencies
+- **💱 Multi-Currency Support**: Convert between USD, Colombian Peso (COP), and Mexican Peso (MXN)
+- **🎮 Fictional Currency System**: Transform real money into gaming-inspired units (Gansitos, Balatros, Silksongs)
+- **📱 Responsive Design**: Optimized for desktop and mobile devices with modern Tailwind CSS
+- **🎨 Modern UI**: Clean, intuitive interface with color-coded currency cards and smooth animations
+- **♿ Accessibility Compliant**: WCAG guidelines with proper ARIA attributes and keyboard navigation
+- **⚡ High Performance**: Built with React 19, TypeScript, and Vite for optimal loading speed
+- **🚀 Automated Deployment**: GitHub Actions workflow for seamless deployment to GitHub Pages
+- **🔒 Type Safety**: Full TypeScript implementation for robust development experience
 
 ## 💱 Exchange Rates
 
@@ -24,8 +32,24 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 ## 🎯 Fictional Currency System
 
 - **🪿 1 Gansito** = $1 USD
-- **🤡 1 Balatro** = 10 Gansitos = $10 USD
+- **🤡 1 Balatro** = 10 Gansitos = $10 USD  
 - **🕷️ 1 Silksong** = 2 Balatros = 20 Gansitos = $20 USD
+
+## 🖥️ Application Interface
+
+The application features a dual-panel design:
+
+### 📊 Exchange Rates Panel (Left)
+- **Color-coded currency cards** for easy identification
+- **Real-time rate display** with country flags and emojis
+- **Visual hierarchy** showing conversion rates to USD
+- **Fictional currency breakdowns** with gaming-inspired icons
+
+### 💱 Currency Converter Panel (Right)
+- **Intuitive dropdown** for source currency selection
+- **Clean input field** for amount entry
+- **Instant conversion results** as you type
+- **Responsive layout** that adapts to all screen sizes
 
 ## 🚀 Quick Start
 
@@ -39,7 +63,7 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/conversor.git
+   git clone https://github.com/CristianFonseca03/conversor.git
    cd conversor
    ```
 
@@ -152,12 +176,14 @@ src/
 
 ### Key Technologies
 
-- **React 19** - Latest React with modern features
-- **TypeScript** - Type safety and better developer experience
-- **Vite** - Fast build tool and development server
-- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
-- **PostCSS** - CSS processing with Tailwind integration
-- **Fixed Exchange Rates** - Reliable standard conversion rates
+- **⚛️ React 19** - Latest React with concurrent features and modern hooks
+- **📘 TypeScript** - Full type safety with strict configuration
+- **⚡ Vite** - Lightning-fast build tool and development server
+- **🎨 Tailwind CSS v4** - Utility-first CSS framework with custom design tokens
+- **📦 PostCSS** - Advanced CSS processing with autoprefixer
+- **🔄 Custom Hooks** - Reusable logic for currency conversion and exchange rates
+- **♿ Accessibility** - WCAG 2.1 AA compliance with semantic HTML
+- **🚀 GitHub Pages** - Automated deployment with GitHub Actions
 
 ## 🎨 Styling & Design
 
@@ -220,7 +246,7 @@ src/index.css          # Tailwind directives and custom utilities
 
    ```json
    {
-     "homepage": "https://YOUR_USERNAME.github.io/conversor"
+     "homepage": "https://cristianfonseca03.github.io/conversor"
    }
    ```
 
@@ -410,7 +436,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help:
 
-1. Check the [Issues](https://github.com/YOUR_USERNAME/conversor/issues) page
+1. Check the [Issues](https://github.com/CristianFonseca03/conversor/issues) page
 2. Create a new issue with detailed description
 3. Provide steps to reproduce any bugs
 
