@@ -1,0 +1,82 @@
+/* Exchange Rates Display Styles */
+.exchange-rates {
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.exchange-rates--loading,
+.exchange-rates--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  text-align: center;
+}
+
+.exchange-rates__error {
+  color: #dc2626;
+  font-style: italic;
+  margin: 0;
+}
+
+.exchange-rates__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+}
+
+.exchange-rates__subtitle {
+  margin: 0 0 1.5rem 0;
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.exchange-rates__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.exchange-rates__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.exchange-rates__label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.exchange-rates__value {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+/* Mobile styles */
+@media (max-width: 640px) {
+  .exchange-rates {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .exchange-rates__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
