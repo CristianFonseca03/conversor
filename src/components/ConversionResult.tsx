@@ -2,10 +2,12 @@
  * Conversion result display component
  */
 
-import type { ConversionResultProps } from '../types';
-import { formatFictionalCurrency, formatRealCurrency } from '../utils/currencyUtils';
-import { LoadingSpinner } from './LoadingSpinner';
-import './ConversionResult.module.css';
+import type { ConversionResultProps } from "../types";
+import {
+  formatFictionalCurrency,
+  formatRealCurrency,
+} from "../utils/currencyUtils";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export const ConversionResult = ({
   result,
@@ -13,7 +15,7 @@ export const ConversionResult = ({
 }: ConversionResultProps) => {
   if (isLoading) {
     return (
-      <div className="conversion-result conversion-result--loading">
+      <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-lg flex items-center justify-center min-h-[200px] text-center">
         <LoadingSpinner size="medium" text="Converting..." />
       </div>
     );
@@ -21,59 +23,73 @@ export const ConversionResult = ({
 
   if (!result) {
     return (
-      <div className="conversion-result conversion-result--empty">
-        <p className="conversion-result__placeholder">
+      <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-lg flex items-center justify-center min-h-[200px] text-center">
+        <p className="text-gray-400 italic m-0">
           Enter an amount to see the conversion result
         </p>
       </div>
     );
   }
 
-  const { originalAmount, originalCurrency, usdEquivalent, fictionalCurrency } = result;
+  const { originalAmount, originalCurrency, usdEquivalent, fictionalCurrency } =
+    result;
 
   return (
-    <div className="conversion-result">
-      <h3 className="conversion-result__title">Conversion Result</h3>
-      
-      <div className="conversion-result__original">
-        <span className="conversion-result__label">Original Amount:</span>
-        <span className="conversion-result__value">
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-lg">
+      <h3 className="m-0 mb-6 text-xl font-bold text-gray-800 text-center border-b-2 border-gray-100 pb-3">
+        Conversion Result
+      </h3>
+
+      <div className="flex justify-between items-center mb-4 p-3 bg-gray-50 rounded-lg sm:flex-col sm:items-start sm:gap-2">
+        <span className="font-semibold text-gray-600 text-sm">
+          Original Amount:
+        </span>
+        <span className="font-bold text-gray-800 text-base">
           {formatRealCurrency(originalAmount, originalCurrency)}
         </span>
       </div>
 
-      {originalCurrency !== 'USD' && (
-        <div className="conversion-result__usd">
-          <span className="conversion-result__label">USD Equivalent:</span>
-          <span className="conversion-result__value">
-            {formatRealCurrency(usdEquivalent, 'USD')}
+      {originalCurrency !== "USD" && (
+        <div className="flex justify-between items-center mb-4 p-3 bg-gray-50 rounded-lg sm:flex-col sm:items-start sm:gap-2">
+          <span className="font-semibold text-gray-600 text-sm">
+            USD Equivalent:
+          </span>
+          <span className="font-bold text-gray-800 text-base">
+            {formatRealCurrency(usdEquivalent, "USD")}
           </span>
         </div>
       )}
 
-      <div className="conversion-result__fictional">
-        <span className="conversion-result__label">Fictional Currency:</span>
-        <div className="conversion-result__fictional-breakdown">
+      <div className="flex flex-col items-start gap-2 mb-4 p-3 bg-gray-50 rounded-lg">
+        <span className="font-semibold text-gray-600 text-sm">
+          Fictional Currency:
+        </span>
+        <div className="text-lg leading-7 text-gray-800 font-semibold text-center w-full sm:text-left">
           {formatFictionalCurrency(fictionalCurrency)}
         </div>
       </div>
 
-      <div className="conversion-result__breakdown">
-        <h4 className="conversion-result__breakdown-title">Breakdown:</h4>
-        <ul className="conversion-result__breakdown-list">
+      <div className="mt-6 pt-6 border-t-2 border-gray-100">
+        <h4 className="m-0 mb-4 text-base font-semibold text-gray-600">
+          Breakdown:
+        </h4>
+        <ul className="list-none m-0 p-0 flex flex-col gap-2">
           {fictionalCurrency.silksongs > 0 && (
-            <li className="conversion-result__breakdown-item">
-              🕷️ {fictionalCurrency.silksongs} Silksong{fictionalCurrency.silksongs !== 1 ? 's' : ''}
+            <li className="flex items-center gap-3 p-2 px-3 bg-slate-50 rounded-md text-base text-gray-600 border-l-4 border-gray-200 hover:bg-slate-100 hover:border-primary-500 transition-colors">
+              🕷️ {fictionalCurrency.silksongs} Silksong
+              {fictionalCurrency.silksongs !== 1 ? "s" : ""}
             </li>
           )}
           {fictionalCurrency.balatros > 0 && (
-            <li className="conversion-result__breakdown-item">
-              🤡 {fictionalCurrency.balatros} Balatro{fictionalCurrency.balatros !== 1 ? 's' : ''}
+            <li className="flex items-center gap-3 p-2 px-3 bg-slate-50 rounded-md text-base text-gray-600 border-l-4 border-gray-200 hover:bg-slate-100 hover:border-primary-500 transition-colors">
+              🤡 {fictionalCurrency.balatros} Balatro
+              {fictionalCurrency.balatros !== 1 ? "s" : ""}
             </li>
           )}
           {fictionalCurrency.gansitos > 0 && (
-            <li className="conversion-result__breakdown-item">
-              🪿 {fictionalCurrency.gansitos} Gansito{fictionalCurrency.gansitos !== 1 ? 's' : ''}
+            <li className="flex items-center gap-3 p-2 px-3 bg-slate-50 rounded-md text-base text-gray-600 border-l-4 border-gray-200 hover:bg-slate-100 hover:border-primary-500 transition-colors">
+              🪿 {fictionalCurrency.gansitos} Gansito
+              {fictionalCurrency.gansitos !== 1 ? "s" : ""}
             </li>
           )}
         </ul>

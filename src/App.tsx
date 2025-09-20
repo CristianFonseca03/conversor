@@ -2,19 +2,23 @@
  * Main Currency Converter Application
  */
 
-import { 
-  CurrencySelector, 
-  AmountInput, 
-  ConversionResult, 
-  ExchangeRatesDisplay, 
-  ErrorDisplay 
-} from './components';
-import { useExchangeRates, useCurrencyConverter } from './hooks';
-import './App.css';
+import {
+  CurrencySelector,
+  AmountInput,
+  ConversionResult,
+  ExchangeRatesDisplay,
+  ErrorDisplay,
+} from "./components";
+import { useExchangeRates, useCurrencyConverter } from "./hooks";
 
 function App() {
-  const { exchangeRates, isLoading: ratesLoading, error: ratesError, refetch } = useExchangeRates();
-  
+  const {
+    exchangeRates,
+    isLoading: ratesLoading,
+    error: ratesError,
+    refetch,
+  } = useExchangeRates();
+
   const {
     selectedCurrency,
     amount,
@@ -31,32 +35,32 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <header className="app__header">
-        <h1 className="app__title">
+    <div className="min-h-screen flex flex-col bg-gradient-app font-sans">
+      <header className="text-center py-8 px-4 pb-4 text-white">
+        <h1 className="text-4xl font-extrabold m-0 mb-2 text-shadow-lg tracking-tight">
           🪿🤡🕷️ Currency Converter
         </h1>
-        <p className="app__subtitle">
+        <p className="text-lg m-0 opacity-90 max-w-xl mx-auto leading-relaxed">
           Convert real currencies to fictional Gansitos, Balatros, and Silksongs
         </p>
       </header>
 
-      <main className="app__main">
+      <main className="flex-1 flex flex-col items-center gap-8 py-8 px-4 max-w-6xl mx-auto w-full">
         {(ratesError || conversionError) && (
-          <ErrorDisplay 
-            error={ratesError || conversionError} 
-            onRetry={ratesError ? handleRetry : undefined} 
+          <ErrorDisplay
+            error={ratesError || conversionError}
+            onRetry={ratesError ? handleRetry : undefined}
           />
         )}
 
-        <div className="app__converter">
-          <div className="app__input-section">
+        <div className="grid grid-cols-2 gap-8 w-full lg:grid-cols-1 lg:gap-6">
+          <div className="flex flex-col items-center gap-6">
             <CurrencySelector
               selectedCurrency={selectedCurrency}
               onCurrencyChange={setSelectedCurrency}
               disabled={ratesLoading}
             />
-            
+
             <AmountInput
               amount={amount}
               onAmountChange={setAmount}
@@ -65,7 +69,7 @@ function App() {
             />
           </div>
 
-          <div className="app__result-section">
+          <div className="flex justify-center">
             <ConversionResult
               result={conversionResult}
               isLoading={ratesLoading && !!amount}
@@ -73,7 +77,7 @@ function App() {
           </div>
         </div>
 
-        <aside className="app__exchange-rates">
+        <aside className="flex justify-center w-full">
           <ExchangeRatesDisplay
             rates={exchangeRates}
             isLoading={ratesLoading}
@@ -81,11 +85,11 @@ function App() {
         </aside>
       </main>
 
-      <footer className="app__footer">
-        <p className="app__footer-text">
+      <footer className="text-center py-6 px-4 text-white bg-black bg-opacity-10">
+        <p className="text-sm m-0 mb-2 opacity-90">
           Fixed exchange rates: 1 USD = 3,900 COP | 1 USD = 18.40 MXN
         </p>
-        <p className="app__footer-conversion">
+        <p className="text-xs m-0 opacity-75">
           1 Gansito = $1 USD | 1 Balatro = 10 Gansitos | 1 Silksong = 2 Balatros
         </p>
       </footer>
