@@ -8,9 +8,10 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 
 - **Fixed Exchange Rates**: Uses standard fixed rates for USD, COP, and MXN conversion
 - **Fictional Currency Conversion**: Converts real money to custom units with proper breakdown
+- **Modern UI with Tailwind CSS**: Utility-first CSS framework for rapid development
 - **Responsive Design**: Mobile-first design that works on all device sizes
 - **Accessibility**: WCAG compliant with proper ARIA attributes and keyboard navigation
-- **Modern Tech Stack**: Built with React 19, TypeScript, and Vite
+- **Modern Tech Stack**: Built with React 19, TypeScript, Vite, and Tailwind CSS
 - **Automated Deployment**: GitHub Actions workflow for seamless deployment to GitHub Pages
 
 ## 💱 Exchange Rates
@@ -67,21 +68,73 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 - **`npm run lint`** - Run ESLint for code quality
 - **`npm run deploy`** - Deploy to GitHub Pages
 
+### Working with Tailwind CSS
+
+#### Development Setup
+
+1. **Tailwind IntelliSense** (Recommended VS Code extension)
+   ```bash
+   # Install the official Tailwind CSS IntelliSense extension
+   # Provides autocomplete, syntax highlighting, and linting
+   ```
+
+2. **Customizing Styles**
+   ```javascript
+   // tailwind.config.js - Add custom utilities
+   theme: {
+     extend: {
+       colors: {
+         'custom-blue': '#1fb6ff',
+       },
+       spacing: {
+         '72': '18rem',
+       }
+     }
+   }
+   ```
+
+3. **Adding Custom Components**
+   ```css
+   /* src/index.css - Add reusable component classes */
+   @layer components {
+     .btn-primary {
+       @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+     }
+   }
+   ```
+
+#### Tailwind Utility Examples
+
+```tsx
+// Responsive design
+<div className="w-full md:w-1/2 lg:w-1/3">
+
+// State variants
+<button className="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 disabled:opacity-50">
+
+// Spacing and layout
+<div className="flex items-center justify-between gap-4 p-6">
+
+// Typography
+<h1 className="text-3xl font-bold text-gray-800 leading-tight">
+```
+
 ### Project Structure
 
 ```
 src/
-├── components/           # Reusable UI components
+├── components/           # Reusable UI components (using Tailwind CSS)
 │   ├── AmountInput.tsx
 │   ├── ConversionResult.tsx
 │   ├── CurrencySelector.tsx
 │   ├── ErrorDisplay.tsx
 │   ├── ExchangeRatesDisplay.tsx
 │   ├── LoadingSpinner.tsx
-│   └── *.module.css     # Component-specific styles
+│   └── index.ts         # Component exports
 ├── hooks/               # Custom React hooks
 │   ├── useCurrencyConverter.ts
-│   └── useExchangeRates.ts
+│   ├── useExchangeRates.ts
+│   └── index.ts
 ├── services/            # Fixed exchange rate service
 │   └── exchangeRateService.ts
 ├── types/               # TypeScript type definitions
@@ -91,8 +144,7 @@ src/
 ├── utils/               # Utility functions
 │   └── currencyUtils.ts
 ├── App.tsx             # Main application component
-├── App.css             # Application styles
-├── index.css           # Global styles
+├── index.css           # Global styles and Tailwind directives
 └── main.tsx            # Application entry point
 ```
 
@@ -101,8 +153,38 @@ src/
 - **React 19** - Latest React with modern features
 - **TypeScript** - Type safety and better developer experience
 - **Vite** - Fast build tool and development server
-- **CSS Modules** - Scoped styling approach
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **PostCSS** - CSS processing with Tailwind integration
 - **Fixed Exchange Rates** - Reliable standard conversion rates
+
+## 🎨 Styling & Design
+
+### Tailwind CSS Implementation
+
+This project uses **Tailwind CSS v4** for all styling, providing:
+
+- **Utility-first approach** for rapid development
+- **Responsive design** with mobile-first breakpoints
+- **Custom design tokens** for consistent theming
+- **Modern CSS features** like CSS Grid and Flexbox
+- **Optimized bundle size** with automatic purging
+
+#### Key Tailwind Features Used
+
+- **Custom Colors**: Extended primary color palette (50-900)
+- **Custom Gradient**: `bg-gradient-app` for the main background
+- **Responsive Utilities**: `sm:`, `md:`, `lg:` breakpoints
+- **State Variants**: `hover:`, `focus:`, `disabled:`, `active:`
+- **Accessibility**: `motion-reduce:` for reduced motion preferences
+- **Custom Utilities**: `text-shadow-lg` for enhanced typography
+
+#### Configuration Files
+
+```
+tailwind.config.js      # Tailwind configuration with custom themes
+postcss.config.js       # PostCSS configuration for Tailwind processing
+src/index.css          # Tailwind directives and custom utilities
+```
 
 ## 📱 Design Features
 
@@ -122,10 +204,11 @@ src/
 
 ### Performance
 
+- **Tailwind CSS optimization** with automatic purging of unused styles
 - **Code splitting** for optimal bundle sizes
 - **React.memo** for component optimization
 - **Efficient state management** with custom hooks
-- **Optimized CSS** with modern properties
+- **Modern CSS** with utility-first approach for smaller bundles
 
 ## 🚀 Deployment
 
@@ -173,6 +256,50 @@ npm run build
 ```
 
 ## 🔧 Configuration
+
+### Tailwind CSS Migration
+
+This project was recently migrated from CSS Modules to Tailwind CSS v4, bringing several benefits:
+
+#### Migration Benefits
+- **Reduced bundle size**: Eliminated ~800+ lines of custom CSS
+- **Improved consistency**: Unified design tokens and spacing
+- **Better maintainability**: Inline utility classes with better documentation
+- **Enhanced developer experience**: IntelliSense autocomplete and class validation
+- **Modern CSS practices**: Utility-first approach with responsive design
+
+#### Migration Process
+1. **Installed Tailwind CSS v4** with proper PostCSS configuration
+2. **Converted all components** from CSS Modules to Tailwind utilities
+3. **Preserved original design** including gradients, spacing, and responsive behavior
+4. **Added custom utilities** for text shadows and brand colors
+5. **Removed legacy CSS files** (App.css, *.module.css)
+
+#### Key Configuration Files
+```javascript
+// tailwind.config.js
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      backgroundImage: {
+        'gradient-app': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      },
+      colors: {
+        primary: { /* 50-900 scale */ }
+      }
+    }
+  }
+}
+
+// postcss.config.js
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    autoprefixer: {},
+  },
+}
+```
 
 ### Environment Variables
 
@@ -247,6 +374,22 @@ src/
 - Include JSDoc comments for complex functions
 - Ensure accessibility compliance
 
+#### Tailwind CSS Guidelines
+
+- **Use semantic class grouping**: Layout → Spacing → Typography → Colors → States
+- **Leverage responsive prefixes**: `sm:`, `md:`, `lg:`, `xl:` for breakpoints
+- **Prefer utility classes** over custom CSS when possible
+- **Use custom components** in `@layer components` for repeated patterns
+- **Follow mobile-first** responsive design principles
+
+```tsx
+// Good: Organized class order
+<div className="flex items-center justify-between w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+
+// Good: Responsive design
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+```
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -256,6 +399,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **[React](https://react.dev/)** - UI library
 - **[Vite](https://vitejs.dev/)** - Build tool
 - **[TypeScript](https://www.typescriptlang.org/)** - Type safety
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
 
 ## 📞 Support
 
@@ -267,4 +411,4 @@ If you have any questions or need help:
 
 ---
 
-**Built with ❤️ using React, TypeScript, and modern web standards**
+**Built with ❤️ using React, TypeScript, Tailwind CSS, and modern web standards**
