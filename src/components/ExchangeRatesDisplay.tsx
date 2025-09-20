@@ -3,7 +3,6 @@
  */
 
 import type { ExchangeRatesDisplayProps } from "../types";
-import { formatRealCurrency } from "../utils/currencyUtils";
 import { LoadingSpinner } from "./LoadingSpinner";
 
 export const ExchangeRatesDisplay = ({
@@ -12,43 +11,100 @@ export const ExchangeRatesDisplay = ({
 }: ExchangeRatesDisplayProps) => {
   if (isLoading) {
     return (
-      <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-md flex items-center justify-center min-h-[120px] text-center">
-        <LoadingSpinner size="small" text="Loading rates..." />
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-80">
+        <div className="flex items-center justify-center min-h-[300px]">
+          <LoadingSpinner size="small" text="Cargando tasas..." />
+        </div>
       </div>
     );
   }
 
   if (!rates) {
     return (
-      <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-md flex items-center justify-center min-h-[120px] text-center">
-        <p className="text-red-600 italic m-0">Unable to load exchange rates</p>
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-80">
+        <div className="flex items-center justify-center min-h-[300px]">
+          <p className="text-red-600 italic m-0">
+            No se pudieron cargar las tasas
+          </p>
+        </div>
       </div>
     );
   }
 
+  const currencies = [
+    {
+      emoji: "🪿",
+      name: "Gansito",
+      description: "Moneda Ficticia",
+      rate: "1 Gansito = $1 USD",
+      flag: null,
+      color: "border-yellow-400 bg-yellow-50",
+    },
+    {
+      emoji: "🤡",
+      name: "Balatro",
+      description: "Moneda Ficticia",
+      rate: "0.1 Balatro = $1 USD",
+      flag: null,
+      color: "border-red-400 bg-red-50",
+    },
+    {
+      emoji: "🕷️",
+      name: "Silksong",
+      description: "Moneda Ficticia",
+      rate: "0.05 Silksong = $1 USD",
+      flag: null,
+      color: "border-gray-400 bg-gray-50",
+    },
+    {
+      emoji: null,
+      name: "MXN",
+      description: "Peso Mexicano",
+      rate: `20 MXN = $1 USD`,
+      flag: "🇲🇽",
+      color: "border-green-400 bg-green-50",
+    },
+    {
+      emoji: null,
+      name: "COP",
+      description: "Peso Colombiano",
+      rate: `4000 COP = $1 USD`,
+      flag: "🇨🇴",
+      color: "border-blue-400 bg-blue-50",
+    },
+  ];
+
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 shadow-sm w-full max-w-md">
-      <h3 className="m-0 mb-2 text-lg font-bold text-gray-800 text-center">
-        Current Exchange Rates
-      </h3>
-      <p className="m-0 mb-6 text-xs text-gray-500 text-center">
-        Updated: {new Date(rates.lastUpdated).toLocaleDateString()}
-      </p>
+    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 w-80 min-w-0">
+      <div className="flex items-center gap-2 mb-6">
+        <span className="text-green-600 text-xl">💱</span>
+        <h2 className="text-lg font-bold text-gray-800 m-0">Tasas de Cambio</h2>
+      </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between items-center px-4 py-3 bg-slate-50 rounded-lg border-l-4 border-primary-500 sm:flex-col sm:items-start sm:gap-1">
-          <span className="font-semibold text-gray-600 text-sm">1 USD =</span>
-          <span className="font-bold text-gray-800 text-base">
-            {formatRealCurrency(rates.COP, "COP")}
-          </span>
-        </div>
-
-        <div className="flex justify-between items-center px-4 py-3 bg-slate-50 rounded-lg border-l-4 border-primary-500 sm:flex-col sm:items-start sm:gap-1">
-          <span className="font-semibold text-gray-600 text-sm">1 USD =</span>
-          <span className="font-bold text-gray-800 text-base">
-            {formatRealCurrency(rates.MXN, "MXN")}
-          </span>
-        </div>
+      <div className="space-y-2">
+        {currencies.map((currency, index) => (
+          <div
+            key={index}
+            className={`flex items-center justify-between p-4 rounded-lg border-l-4 ${currency.color} transition-all hover:shadow-md`}
+          >
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <span className="text-2xl flex-shrink-0">
+                {currency.emoji || currency.flag}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="font-bold text-gray-800 text-base">
+                  {currency.name}
+                </div>
+                <div className="text-xs text-gray-600 font-medium">
+                  {currency.description}
+                </div>
+              </div>
+            </div>
+            <div className="text-xs font-bold text-gray-700 flex-shrink-0 ml-2 whitespace-nowrap">
+              {currency.rate}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ export interface AmountInputProps {
   onAmountChange: (amount: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  error?: string | null;
 }
 
 export interface ConversionResultProps {
