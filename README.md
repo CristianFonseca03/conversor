@@ -73,12 +73,14 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 #### Development Setup
 
 1. **Tailwind IntelliSense** (Recommended VS Code extension)
+
    ```bash
    # Install the official Tailwind CSS IntelliSense extension
    # Provides autocomplete, syntax highlighting, and linting
    ```
 
 2. **Customizing Styles**
+
    ```javascript
    // tailwind.config.js - Add custom utilities
    theme: {
@@ -262,6 +264,7 @@ npm run build
 This project was recently migrated from CSS Modules to Tailwind CSS v4, bringing several benefits:
 
 #### Migration Benefits
+
 - **Reduced bundle size**: Eliminated ~800+ lines of custom CSS
 - **Improved consistency**: Unified design tokens and spacing
 - **Better maintainability**: Inline utility classes with better documentation
@@ -269,13 +272,15 @@ This project was recently migrated from CSS Modules to Tailwind CSS v4, bringing
 - **Modern CSS practices**: Utility-first approach with responsive design
 
 #### Migration Process
+
 1. **Installed Tailwind CSS v4** with proper PostCSS configuration
 2. **Converted all components** from CSS Modules to Tailwind utilities
 3. **Preserved original design** including gradients, spacing, and responsive behavior
 4. **Added custom utilities** for text shadows and brand colors
-5. **Removed legacy CSS files** (App.css, *.module.css)
+5. **Removed legacy CSS files** (App.css, \*.module.css)
 
 #### Key Configuration Files
+
 ```javascript
 // tailwind.config.js
 export default {

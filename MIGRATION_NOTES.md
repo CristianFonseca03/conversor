@@ -16,15 +16,15 @@ This document outlines the complete migration from CSS Modules to Tailwind CSS v
 
 ### ✅ Completed Migrations
 
-| Component | Before | After | Key Changes |
-|-----------|--------|-------|-------------|
-| **AmountInput** | CSS Modules | Tailwind utilities | Focus states, responsive design |
-| **ConversionResult** | CSS Modules | Tailwind utilities | Hover effects, responsive layout |
-| **CurrencySelector** | CSS Modules | Tailwind utilities | Custom select styling, focus rings |
-| **ExchangeRatesDisplay** | CSS Modules | Tailwind utilities | Card layout, border accents |
-| **ErrorDisplay** | CSS Modules | Tailwind utilities | Error color scheme, button states |
-| **LoadingSpinner** | CSS Modules | Tailwind utilities | Animation utilities, accessibility |
-| **App (Main)** | CSS + CSS Modules | Tailwind utilities | Custom gradient, responsive grid |
+| Component                | Before            | After              | Key Changes                        |
+| ------------------------ | ----------------- | ------------------ | ---------------------------------- |
+| **AmountInput**          | CSS Modules       | Tailwind utilities | Focus states, responsive design    |
+| **ConversionResult**     | CSS Modules       | Tailwind utilities | Hover effects, responsive layout   |
+| **CurrencySelector**     | CSS Modules       | Tailwind utilities | Custom select styling, focus rings |
+| **ExchangeRatesDisplay** | CSS Modules       | Tailwind utilities | Card layout, border accents        |
+| **ErrorDisplay**         | CSS Modules       | Tailwind utilities | Error color scheme, button states  |
+| **LoadingSpinner**       | CSS Modules       | Tailwind utilities | Animation utilities, accessibility |
+| **App (Main)**           | CSS + CSS Modules | Tailwind utilities | Custom gradient, responsive grid   |
 
 ## 🎨 Design System Improvements
 
@@ -68,26 +68,23 @@ colors: {
 ```javascript
 // tailwind.config.js
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', /* ... */],
+        sans: ["Inter", "system-ui" /* ... */],
       },
       backgroundImage: {
-        'gradient-app': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        "gradient-app": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       },
       animation: {
-        'spin-slow': 'spin 2s linear infinite',
-        'pulse-slow': 'pulse 3s ease-in-out infinite',
+        "spin-slow": "spin 2s linear infinite",
+        "pulse-slow": "pulse 3s ease-in-out infinite",
       },
     },
   },
   plugins: [],
-}
+};
 ```
 
 ### PostCSS Integration
@@ -96,15 +93,16 @@ export default {
 // postcss.config.js
 export default {
   plugins: {
-    '@tailwindcss/postcss': {}, // v4 requires separate package
+    "@tailwindcss/postcss": {}, // v4 requires separate package
     autoprefixer: {},
   },
-}
+};
 ```
 
 ## 📱 Responsive Design Patterns
 
 ### Before (CSS Modules)
+
 ```css
 .component {
   display: grid;
@@ -121,6 +119,7 @@ export default {
 ```
 
 ### After (Tailwind)
+
 ```tsx
 <div className="grid grid-cols-2 gap-8 lg:grid-cols-1 lg:gap-4">
 ```
@@ -128,24 +127,28 @@ export default {
 ## 🎯 Key Benefits Achieved
 
 ### 1. **Developer Experience**
+
 - ✅ IntelliSense autocomplete for class names
 - ✅ Instant preview of styles in editor
 - ✅ No context switching between files
 - ✅ Consistent naming conventions
 
 ### 2. **Performance**
+
 - ✅ Automatic CSS purging (removes unused styles)
 - ✅ Smaller bundle size (~40% reduction)
 - ✅ No CSS-in-JS runtime overhead
 - ✅ Critical CSS inlining by default
 
 ### 3. **Maintainability**
+
 - ✅ Single source of truth for design tokens
 - ✅ Self-documenting utility classes
 - ✅ Easier refactoring and updates
 - ✅ Consistent spacing and typography
 
 ### 4. **Accessibility**
+
 - ✅ Built-in accessibility patterns
 - ✅ `motion-reduce:` support for animations
 - ✅ Focus ring utilities
@@ -154,36 +157,43 @@ export default {
 ## 🚨 Migration Challenges & Solutions
 
 ### Challenge 1: Complex Animations
+
 **Problem**: CSS keyframes needed conversion  
 **Solution**: Used Tailwind's built-in animations + custom utilities
 
 ### Challenge 2: Gradient Backgrounds
+
 **Problem**: Custom gradients not in default Tailwind  
 **Solution**: Extended theme with custom `backgroundImage`
 
 ### Challenge 3: PostCSS Configuration
+
 **Problem**: Tailwind v4 requires `@tailwindcss/postcss`  
 **Solution**: Updated PostCSS config with correct plugin
 
 ### Challenge 4: @import Order
+
 **Problem**: CSS @import must precede Tailwind directives  
 **Solution**: Reorganized index.css with proper order
 
 ## 📚 Best Practices Established
 
 ### 1. **Class Organization**
+
 ```tsx
 // Recommended order: Layout → Spacing → Typography → Colors → States
 <div className="flex items-center justify-between w-full p-4 text-lg font-medium text-gray-800 bg-white hover:bg-gray-50">
 ```
 
 ### 2. **Responsive Design**
+
 ```tsx
 // Mobile-first approach
 <div className="w-full md:w-1/2 lg:w-1/3">
 ```
 
 ### 3. **Component Patterns**
+
 ```tsx
 // Reusable patterns in @layer components
 @layer components {
@@ -194,6 +204,7 @@ export default {
 ```
 
 ### 4. **State Management**
+
 ```tsx
 // Consistent state styling
 <button className="bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-200 disabled:opacity-50">
@@ -202,6 +213,7 @@ export default {
 ## 🔮 Future Improvements
 
 ### Potential Enhancements
+
 - [ ] **Dark mode support** with Tailwind's dark: variant
 - [ ] **Component library** with standardized patterns
 - [ ] **Design tokens** for more advanced theming
@@ -209,6 +221,7 @@ export default {
 - [ ] **CSS-in-JS integration** for dynamic styles if needed
 
 ### Monitoring
+
 - [ ] **Bundle size tracking** to ensure CSS stays optimized
 - [ ] **Performance monitoring** for Core Web Vitals
 - [ ] **Accessibility audits** with automated testing
