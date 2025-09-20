@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://YOUR_USERNAME.github.io/conversor",
+  "homepage": "https://CristianFonseca03.github.io/conversor",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
