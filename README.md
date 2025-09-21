@@ -8,7 +8,7 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 
 ![Currency Converter Demo](https://cristianfonseca03.github.io/conversor/demo-screenshot.png)
 
-*The application features a modern interface with real-time exchange rates display and conversion to fictional currency units*
+_The application features a modern interface with real-time exchange rates display and conversion to fictional currency units_
 
 ## ✨ Features
 
@@ -32,7 +32,7 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 ## 🎯 Fictional Currency System
 
 - **🪿 1 Gansito** = $1 USD
-- **🤡 1 Balatro** = 10 Gansitos = $10 USD  
+- **🤡 1 Balatro** = 10 Gansitos = $10 USD
 - **🕷️ 1 Silksong** = 2 Balatros = 20 Gansitos = $20 USD
 
 ## 🖥️ Application Interface
@@ -40,12 +40,14 @@ A modern React TypeScript application that converts real currencies (USD, COP, M
 The application features a dual-panel design:
 
 ### 📊 Exchange Rates Panel (Left)
+
 - **Color-coded currency cards** for easy identification
 - **Real-time rate display** with country flags and emojis
 - **Visual hierarchy** showing conversion rates to USD
 - **Fictional currency breakdowns** with gaming-inspired icons
 
 ### 💱 Currency Converter Panel (Right)
+
 - **Intuitive dropdown** for source currency selection
 - **Clean input field** for amount entry
 - **Instant conversion results** as you type
