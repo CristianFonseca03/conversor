@@ -3,12 +3,16 @@
  */
 
 import type { ExchangeRatesDisplayProps } from "../types";
+import { useFictionalCurrencies, useRealCurrencies } from "../hooks";
 import { LoadingSpinner } from "./LoadingSpinner";
 
 export const ExchangeRatesDisplay = ({
   rates,
   isLoading,
 }: ExchangeRatesDisplayProps) => {
+  const { getAllFictionalCurrencies } = useFictionalCurrencies();
+  const { getAllRealCurrencies } = useRealCurrencies();
+  
   if (isLoading) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-80">
@@ -31,47 +35,32 @@ export const ExchangeRatesDisplay = ({
     );
   }
 
+  // Get fictional currencies from configuration
+  const fictionalCurrencies = getAllFictionalCurrencies();
+  const realCurrencies = getAllRealCurrencies();
+  
+  // Build currency display data dynamically
   const currencies = [
-    {
-      emoji: "🪿",
-      name: "Gansito",
+    // Fictional currencies from configuration
+    ...fictionalCurrencies.map(currency => ({
+      emoji: currency.icon,
+      name: currency.name,
       description: "Moneda Ficticia",
-      rate: "1 Gansito = $1 USD",
+      rate: `1 ${currency.name} = $${currency.usdValue} USD`,
       flag: null,
-      color: "border-yellow-400 bg-yellow-50",
-    },
-    {
-      emoji: "🤡",
-      name: "Balatro",
-      description: "Moneda Ficticia",
-      rate: "0.1 Balatro = $1 USD",
-      flag: null,
-      color: "border-red-400 bg-red-50",
-    },
-    {
-      emoji: "🕷️",
-      name: "Silksong",
-      description: "Moneda Ficticia",
-      rate: "0.05 Silksong = $1 USD",
-      flag: null,
-      color: "border-gray-400 bg-gray-50",
-    },
-    {
-      emoji: null,
-      name: "MXN",
-      description: "Peso Mexicano",
-      rate: `20 MXN = $1 USD`,
-      flag: "🇲🇽",
-      color: "border-green-400 bg-green-50",
-    },
-    {
-      emoji: null,
-      name: "COP",
-      description: "Peso Colombiano",
-      rate: `4000 COP = $1 USD`,
-      flag: "🇨🇴",
-      color: "border-blue-400 bg-blue-50",
-    },
+      color: currency.color,
+    })),
+    // Real currencies from configuration
+    ...realCurrencies
+      .filter(currency => !currency.isBase) // Exclude base currency
+      .map(currency => ({
+        emoji: null,
+        name: currency.code,
+        description: currency.name,
+        rate: `${rates ? Math.round(Number(rates[currency.code as keyof typeof rates]) || 0) : 0} ${currency.code} = $1 USD`,
+        flag: currency.flag,
+        color: currency.color,
+      })),
   ];
 
   return (

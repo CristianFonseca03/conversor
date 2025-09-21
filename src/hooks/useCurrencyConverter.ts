@@ -6,9 +6,11 @@ import { useState, useCallback, useMemo } from "react";
 import type { RealCurrency, ConversionResult, ExchangeRates } from "../types";
 import {
   convertRealToFictionalCurrency,
+  convertRealToFictionalCurrencyWithConfig,
   isValidAmount,
   parseAmount,
 } from "../utils/currencyUtils";
+import { useCurrencyConfig, useRealCurrencies } from "./useCurrencyConfig";
 
 interface UseCurrencyConverterProps {
   exchangeRates: ExchangeRates | null;
@@ -27,7 +29,15 @@ interface UseCurrencyConverterReturn {
 export function useCurrencyConverter({
   exchangeRates,
 }: UseCurrencyConverterProps): UseCurrencyConverterReturn {
-  const [selectedCurrency, setSelectedCurrency] = useState<RealCurrency>("USD");
+  // Load currency configuration
+  const { config } = useCurrencyConfig();
+  const { getBaseCurrency } = useRealCurrencies();
+  
+  // Get default currency from configuration, fallback to "USD"
+  const baseCurrency = getBaseCurrency();
+  const defaultCurrency = (baseCurrency?.code as RealCurrency) || "USD";
+  
+  const [selectedCurrency, setSelectedCurrency] = useState<RealCurrency>(defaultCurrency);
   const [amount, setAmount] = useState<string>("");
   const [conversionError, setConversionError] = useState<string | null>(null);
 
@@ -44,11 +54,19 @@ export function useCurrencyConverter({
         return null;
       }
 
-      const result = convertRealToFictionalCurrency(
-        numericAmount,
-        selectedCurrency,
-        exchangeRates
-      );
+      // Use configuration-based conversion if available, otherwise fallback to legacy
+      const result = config 
+        ? convertRealToFictionalCurrencyWithConfig(
+            numericAmount,
+            selectedCurrency,
+            exchangeRates,
+            config
+          )
+        : convertRealToFictionalCurrency(
+            numericAmount,
+            selectedCurrency,
+            exchangeRates
+          );
 
       setConversionError(null);
       return result;
@@ -58,7 +76,7 @@ export function useCurrencyConverter({
       setConversionError(errorMessage);
       return null;
     }
-  }, [amount, selectedCurrency, exchangeRates]);
+  }, [amount, selectedCurrency, exchangeRates, config]);
 
   const resetConverter = useCallback(() => {
     setAmount("");

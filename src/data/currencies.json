@@ -1,0 +1,90 @@
+{
+  "realCurrencies": {
+    "USD": {
+      "code": "USD",
+      "name": "US Dollar",
+      "symbol": "$",
+      "isBase": true,
+      "flag": "🇺🇸",
+      "color": "border-blue-400 bg-blue-50"
+    },
+    "COP": {
+      "code": "COP",
+      "name": "Colombian Peso",
+      "symbol": "$",
+      "isBase": false,
+      "flag": "🇨🇴",
+      "color": "border-blue-400 bg-blue-50"
+    },
+    "MXN": {
+      "code": "MXN",
+      "name": "Mexican Peso",
+      "symbol": "$",
+      "isBase": false,
+      "flag": "🇲🇽",
+      "color": "border-green-400 bg-green-50"
+    }
+  },
+  "fictionalCurrencies": {
+    "gansito": {
+      "code": "gansito",
+      "name": "Gansito",
+      "namePlural": "Gansitos",
+      "icon": "🪿",
+      "usdValue": 1,
+      "order": 3,
+      "color": "border-yellow-400 bg-yellow-50"
+    },
+    "balatro": {
+      "code": "balatro",
+      "name": "Balatro", 
+      "namePlural": "Balatros",
+      "icon": "🤡",
+      "usdValue": 10,
+      "order": 2,
+      "color": "border-red-400 bg-red-50"
+    },
+    "silksong": {
+      "code": "silksong",
+      "name": "Silksong",
+      "namePlural": "Silksongs", 
+      "icon": "🕷️",
+      "usdValue": 20,
+      "order": 1,
+      "color": "border-gray-400 bg-gray-50"
+    }
+  },
+  "conversionRules": {
+    "gansito": {
+      "baseUnit": true,
+      "equivalences": []
+    },
+    "balatro": {
+      "baseUnit": false,
+      "equivalences": [
+        {
+          "unit": "gansito",
+          "rate": 10
+        }
+      ]
+    },
+    "silksong": {
+      "baseUnit": false,
+      "equivalences": [
+        {
+          "unit": "balatro", 
+          "rate": 2
+        },
+        {
+          "unit": "gansito",
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-09-20T00:00:00Z",
+    "description": "Configuración de monedas reales y ficticias para el conversor"
+  }
+}

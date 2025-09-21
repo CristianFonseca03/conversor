@@ -9,7 +9,7 @@ import {
   ErrorDisplay,
   LoadingSpinner,
 } from "./components";
-import { useExchangeRates, useCurrencyConverter } from "./hooks";
+import { useExchangeRates, useCurrencyConverter, useRealCurrencies, useFictionalCurrencies } from "./hooks";
 import { useState } from "react";
 
 function App() {
@@ -32,18 +32,33 @@ function App() {
     resetConverter,
   } = useCurrencyConverter({ exchangeRates });
 
-  // Generar placeholder dinámico basado en la moneda seleccionada
+  // Obtener configuración de monedas reales
+  const { getAllRealCurrencies } = useRealCurrencies();
+  
+  // Obtener configuración de monedas ficticias
+  const { getAllFictionalCurrencies } = useFictionalCurrencies();
+
+  // Generar placeholder dinámico basado en la moneda seleccionada y configuración
   const getPlaceholderForCurrency = (currency: string): string => {
-    switch (currency) {
-      case "USD":
-        return "1";
-      case "COP":
-        return "4000";
-      case "MXN":
-        return "20";
-      default:
-        return "1";
+    const realCurrencies = getAllRealCurrencies();
+    const currencyConfig = realCurrencies.find(c => c.code === currency);
+    
+    if (currencyConfig) {
+      // Use some reasonable example values based on approximate exchange rates
+      // In a real application, these could also come from the configuration
+      switch (currency) {
+        case "USD":
+          return "1";
+        case "COP":
+          return "4000";
+        case "MXN":
+          return "20";
+        default:
+          return "1";
+      }
     }
+    
+    return "1"; // fallback
   };
 
   const currentPlaceholder = getPlaceholderForCurrency(selectedCurrency);
@@ -142,40 +157,30 @@ function App() {
                     Equivalencia Ficticia:
                   </h3>
                   <div className="space-y-3">
-                    {conversionResult.fictionalCurrency.silksongs > 0 && (
-                      <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
-                        <span className="text-2xl">🕷️</span>
-                        <span className="text-gray-800 font-semibold">
-                          {conversionResult.fictionalCurrency.silksongs}{" "}
-                          Silksong
-                          {conversionResult.fictionalCurrency.silksongs !== 1
-                            ? "s"
-                            : ""}
-                        </span>
-                      </div>
-                    )}
-                    {conversionResult.fictionalCurrency.balatros > 0 && (
-                      <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
-                        <span className="text-2xl">🤡</span>
-                        <span className="text-gray-800 font-semibold">
-                          {conversionResult.fictionalCurrency.balatros} Balatro
-                          {conversionResult.fictionalCurrency.balatros !== 1
-                            ? "s"
-                            : ""}
-                        </span>
-                      </div>
-                    )}
-                    {conversionResult.fictionalCurrency.gansitos > 0 && (
-                      <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
-                        <span className="text-2xl">🪿</span>
-                        <span className="text-gray-800 font-semibold">
-                          {conversionResult.fictionalCurrency.gansitos} Gansito
-                          {conversionResult.fictionalCurrency.gansitos !== 1
-                            ? "s"
-                            : ""}
-                        </span>
-                      </div>
-                    )}
+                    {Object.entries(conversionResult.fictionalCurrency).map(([key, value]) => {
+                      if (value <= 0) return null;
+                      
+                      const allFictionalCurrencies = getAllFictionalCurrencies();
+                      const currency = allFictionalCurrencies.find(c => {
+                        // Map the key to the currency code (both lowercase)
+                        if (key === 'silksongs') return c.code.toLowerCase() === 'silksong';
+                        if (key === 'balatros') return c.code.toLowerCase() === 'balatro';
+                        if (key === 'gansitos') return c.code.toLowerCase() === 'gansito';
+                        return false;
+                      });
+                      
+                      if (!currency) return null;
+                      
+                      return (
+                        <div key={key} className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+                          <span className="text-2xl">{currency.icon}</span>
+                          <span className="text-gray-800 font-semibold">
+                            {value} {currency.name}
+                            {value !== 1 ? "s" : ""}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}

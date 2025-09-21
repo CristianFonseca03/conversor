@@ -2,14 +2,29 @@
  * Service for providing fixed exchange rates
  */
 
-import type { ExchangeRates } from "../types";
+import type { ExchangeRates, CurrencyConfiguration } from "../types";
+import currencyConfigData from '../data/currencies.json';
 
-// Fixed exchange rates
-const FIXED_EXCHANGE_RATES = {
+// Fixed exchange rates (in production, this would come from a real API)
+const FIXED_EXCHANGE_RATES: ExchangeRates = {
   USD: 1, // Base currency
   COP: 3900, // 1 USD = 3900 COP
   MXN: 18.4, // 1 USD = 18.40 MXN
+  lastUpdated: new Date().toISOString(),
 };
+
+/**
+ * Gets the base currency code from configuration
+ */
+function getBaseCurrency(): string {
+  try {
+    const config = currencyConfigData as CurrencyConfiguration;
+    const baseCurrency = Object.values(config.realCurrencies).find(currency => currency.isBase);
+    return baseCurrency?.code || "USD";
+  } catch {
+    return "USD";
+  }
+}
 
 /**
  * Returns fixed exchange rates
@@ -28,14 +43,16 @@ export async function fetchExchangeRates(): Promise<ExchangeRates> {
 }
 
 /**
- * Converts an amount from one currency to USD using exchange rates
+ * Converts an amount from one currency to base currency using exchange rates
  */
 export function convertToUSD(
   amount: number,
   fromCurrency: "USD" | "COP" | "MXN",
   rates: ExchangeRates
 ): number {
-  if (fromCurrency === "USD") {
+  const baseCurrency = getBaseCurrency();
+  
+  if (fromCurrency === baseCurrency) {
     return amount;
   }
 
