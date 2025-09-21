@@ -32,12 +32,13 @@ export function useCurrencyConverter({
   // Load currency configuration
   const { config } = useCurrencyConfig();
   const { getBaseCurrency } = useRealCurrencies();
-  
+
   // Get default currency from configuration, fallback to "USD"
   const baseCurrency = getBaseCurrency();
   const defaultCurrency = (baseCurrency?.code as RealCurrency) || "USD";
-  
-  const [selectedCurrency, setSelectedCurrency] = useState<RealCurrency>(defaultCurrency);
+
+  const [selectedCurrency, setSelectedCurrency] =
+    useState<RealCurrency>(defaultCurrency);
   const [amount, setAmount] = useState<string>("");
   const [conversionError, setConversionError] = useState<string | null>(null);
 
@@ -55,7 +56,7 @@ export function useCurrencyConverter({
       }
 
       // Use configuration-based conversion if available, otherwise fallback to legacy
-      const result = config 
+      const result = config
         ? convertRealToFictionalCurrencyWithConfig(
             numericAmount,
             selectedCurrency,

@@ -2,16 +2,16 @@
  * Custom hook for loading and managing currency configuration from JSON
  */
 
-import { useState, useEffect } from 'react';
-import type { 
-  CurrencyConfiguration, 
+import { useState, useEffect } from "react";
+import type {
+  CurrencyConfiguration,
   CurrencyConfigState,
   RealCurrencyConfig,
-  FictionalCurrencyConfig
-} from '../types';
+  FictionalCurrencyConfig,
+} from "../types";
 
 // Import the currency configuration JSON
-import currencyConfigData from '../data/currencies.json';
+import currencyConfigData from "../data/currencies.json";
 
 /**
  * Hook to load and provide currency configuration
@@ -27,9 +27,13 @@ export function useCurrencyConfig(): CurrencyConfigState {
     try {
       // Validate the loaded configuration
       const config = currencyConfigData as CurrencyConfiguration;
-      
-      if (!config.realCurrencies || !config.fictionalCurrencies || !config.conversionRules) {
-        throw new Error('Invalid currency configuration format');
+
+      if (
+        !config.realCurrencies ||
+        !config.fictionalCurrencies ||
+        !config.conversionRules
+      ) {
+        throw new Error("Invalid currency configuration format");
       }
 
       setState({
@@ -41,7 +45,10 @@ export function useCurrencyConfig(): CurrencyConfigState {
       setState({
         config: null,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Failed to load currency configuration',
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to load currency configuration",
       });
     }
   }, []);
@@ -66,7 +73,9 @@ export function useRealCurrencies() {
 
   const getBaseCurrency = (): RealCurrencyConfig | undefined => {
     if (!config) return undefined;
-    return Object.values(config.realCurrencies).find(currency => currency.isBase);
+    return Object.values(config.realCurrencies).find(
+      (currency) => currency.isBase
+    );
   };
 
   return {
@@ -85,18 +94,26 @@ export function useRealCurrencies() {
 export function useFictionalCurrencies() {
   const { config, isLoading, error } = useCurrencyConfig();
 
-  const getFictionalCurrency = (code: string): FictionalCurrencyConfig | undefined => {
+  const getFictionalCurrency = (
+    code: string
+  ): FictionalCurrencyConfig | undefined => {
     return config?.fictionalCurrencies[code];
   };
 
   const getAllFictionalCurrencies = (): FictionalCurrencyConfig[] => {
     if (!config) return [];
-    return Object.values(config.fictionalCurrencies).sort((a, b) => a.order - b.order);
+    return Object.values(config.fictionalCurrencies).sort(
+      (a, b) => a.order - b.order
+    );
   };
 
-  const getFictionalCurrencyByValue = (usdValue: number): FictionalCurrencyConfig | undefined => {
+  const getFictionalCurrencyByValue = (
+    usdValue: number
+  ): FictionalCurrencyConfig | undefined => {
     if (!config) return undefined;
-    return Object.values(config.fictionalCurrencies).find(currency => currency.usdValue === usdValue);
+    return Object.values(config.fictionalCurrencies).find(
+      (currency) => currency.usdValue === usdValue
+    );
   };
 
   return {
@@ -121,15 +138,20 @@ export function useConversionRules() {
 
   const getBaseUnit = () => {
     if (!config) return undefined;
-    const baseRule = Object.entries(config.conversionRules).find(([, rule]) => rule.baseUnit);
+    const baseRule = Object.entries(config.conversionRules).find(
+      ([, rule]) => rule.baseUnit
+    );
     return baseRule ? baseRule[0] : undefined;
   };
 
-  const getEquivalenceRate = (fromCurrency: string, toCurrency: string): number | undefined => {
+  const getEquivalenceRate = (
+    fromCurrency: string,
+    toCurrency: string
+  ): number | undefined => {
     const rule = getConversionRule(fromCurrency);
     if (!rule) return undefined;
-    
-    const equivalence = rule.equivalences.find(eq => eq.unit === toCurrency);
+
+    const equivalence = rule.equivalences.find((eq) => eq.unit === toCurrency);
     return equivalence?.rate;
   };
 

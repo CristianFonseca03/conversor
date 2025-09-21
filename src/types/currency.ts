@@ -63,6 +63,12 @@ export interface FictionalCurrencyDisplayInfo {
 
 // ===== NEW TYPES FOR JSON-BASED CONFIGURATION =====
 
+// Color configuration
+export interface CurrencyColors {
+  border: string;
+  background: string;
+}
+
 // Real currency configuration from JSON
 export interface RealCurrencyConfig {
   code: string;
@@ -70,7 +76,8 @@ export interface RealCurrencyConfig {
   symbol: string;
   isBase: boolean;
   flag: string;
-  color: string;
+  order: number;
+  colors: CurrencyColors;
 }
 
 // Fictional currency configuration from JSON
@@ -81,7 +88,7 @@ export interface FictionalCurrencyConfig {
   icon: string;
   usdValue: number;
   order: number;
-  color: string;
+  colors: CurrencyColors;
 }
 
 // Conversion rule equivalence

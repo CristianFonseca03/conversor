@@ -12,11 +12,12 @@ export const CurrencySelector = ({
   disabled = false,
 }: CurrencySelectorProps) => {
   const { getAllRealCurrencies, isLoading, error } = useRealCurrencies();
-  
+
   // Use configuration if available, otherwise fallback to legacy constants
-  const currencies = isLoading || error ? REAL_CURRENCIES : getAllRealCurrencies();
-  const currencyEntries = Array.isArray(currencies) 
-    ? currencies.map(currency => [currency.code, currency] as const)
+  const currencies =
+    isLoading || error ? REAL_CURRENCIES : getAllRealCurrencies();
+  const currencyEntries = Array.isArray(currencies)
+    ? currencies.map((currency) => [currency.code, currency] as const)
     : Object.entries(currencies);
 
   return (

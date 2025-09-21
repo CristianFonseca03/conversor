@@ -4,54 +4,75 @@
       "code": "USD",
       "name": "US Dollar",
       "symbol": "$",
-      "isBase": true,
       "flag": "🇺🇸",
-      "color": "border-blue-400 bg-blue-50"
+      "isBase": true,
+      "order": 1,
+      "colors": {
+        "border": "#3B82F6",
+        "background": "#EFF6FF"
+      }
     },
     "COP": {
       "code": "COP",
       "name": "Colombian Peso",
       "symbol": "$",
-      "isBase": false,
       "flag": "🇨🇴",
-      "color": "border-blue-400 bg-blue-50"
+      "isBase": false,
+      "order": 2,
+      "colors": {
+        "border": "#3B82F6",
+        "background": "#EFF6FF"
+      }
     },
     "MXN": {
       "code": "MXN",
       "name": "Mexican Peso",
       "symbol": "$",
-      "isBase": false,
       "flag": "🇲🇽",
-      "color": "border-green-400 bg-green-50"
+      "isBase": false,
+      "order": 3,
+      "colors": {
+        "border": "#10B981",
+        "background": "#ECFDF5"
+      }
     }
   },
   "fictionalCurrencies": {
     "gansito": {
-      "code": "gansito",
+      "code": "GNS",
       "name": "Gansito",
       "namePlural": "Gansitos",
       "icon": "🪿",
       "usdValue": 1,
       "order": 3,
-      "color": "border-yellow-400 bg-yellow-50"
+      "colors": {
+        "border": "#F59E0B",
+        "background": "#FFFBEB"
+      }
     },
     "balatro": {
-      "code": "balatro",
-      "name": "Balatro", 
+      "code": "BLT",
+      "name": "Balatro",
       "namePlural": "Balatros",
       "icon": "🤡",
       "usdValue": 10,
       "order": 2,
-      "color": "border-red-400 bg-red-50"
+      "colors": {
+        "border": "#EF4444",
+        "background": "#FEF2F2"
+      }
     },
     "silksong": {
-      "code": "silksong",
+      "code": "SLK",
       "name": "Silksong",
-      "namePlural": "Silksongs", 
+      "namePlural": "Silksongs",
       "icon": "🕷️",
       "usdValue": 20,
       "order": 1,
-      "color": "border-gray-400 bg-gray-50"
+      "colors": {
+        "border": "#6B7280",
+        "background": "#F9FAFB"
+      }
     }
   },
   "conversionRules": {
@@ -72,7 +93,7 @@
       "baseUnit": false,
       "equivalences": [
         {
-          "unit": "balatro", 
+          "unit": "balatro",
           "rate": 2
         },
         {

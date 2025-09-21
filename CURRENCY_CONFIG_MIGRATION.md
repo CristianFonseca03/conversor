@@ -7,6 +7,7 @@ El proyecto ha sido migrado para cargar la configuración de monedas desde un ar
 ## Estructura del Archivo de Configuración
 
 ### Ubicación
+
 ```
 src/data/currencies.json
 ```
@@ -23,14 +24,14 @@ src/data/currencies.json
       "isBase": true
     },
     "COP": {
-      "code": "COP", 
+      "code": "COP",
       "name": "Colombian Peso",
       "symbol": "$",
       "isBase": false
     },
     "MXN": {
       "code": "MXN",
-      "name": "Mexican Peso", 
+      "name": "Mexican Peso",
       "symbol": "$",
       "isBase": false
     }
@@ -47,7 +48,7 @@ src/data/currencies.json
     "balatro": {
       "code": "balatro",
       "name": "Balatro",
-      "namePlural": "Balatros", 
+      "namePlural": "Balatros",
       "icon": "🤡",
       "usdValue": 10,
       "order": 2
@@ -56,7 +57,7 @@ src/data/currencies.json
       "code": "silksong",
       "name": "Silksong",
       "namePlural": "Silksongs",
-      "icon": "🕷️", 
+      "icon": "🕷️",
       "usdValue": 20,
       "order": 1
     }
@@ -83,7 +84,7 @@ src/data/currencies.json
           "rate": 2
         },
         {
-          "unit": "gansito", 
+          "unit": "gansito",
           "rate": 20
         }
       ]
@@ -100,6 +101,7 @@ src/data/currencies.json
 ## Nuevos Hooks de React
 
 ### `useCurrencyConfig()`
+
 Hook principal que carga la configuración completa desde el archivo JSON.
 
 ```typescript
@@ -107,20 +109,22 @@ const { config, isLoading, error } = useCurrencyConfig();
 ```
 
 ### `useRealCurrencies()`
+
 Hook especializado para trabajar con monedas reales.
 
 ```typescript
-const { 
-  currencies, 
-  isLoading, 
-  error, 
+const {
+  currencies,
+  isLoading,
+  error,
   getRealCurrency,
   getAllRealCurrencies,
-  getBaseCurrency 
+  getBaseCurrency,
 } = useRealCurrencies();
 ```
 
 ### `useFictionalCurrencies()`
+
 Hook especializado para trabajar con monedas ficticias.
 
 ```typescript
@@ -130,11 +134,12 @@ const {
   error,
   getFictionalCurrency,
   getAllFictionalCurrencies,
-  getFictionalCurrencyByValue
+  getFictionalCurrencyByValue,
 } = useFictionalCurrencies();
 ```
 
 ### `useConversionRules()`
+
 Hook para trabajar con las reglas de conversión entre monedas.
 
 ```typescript
@@ -144,7 +149,7 @@ const {
   error,
   getConversionRule,
   getBaseUnit,
-  getEquivalenceRate
+  getEquivalenceRate,
 } = useConversionRules();
 ```
 
@@ -153,12 +158,12 @@ const {
 ### Funciones basadas en configuración
 
 - `convertUSDToFictionalCurrencyWithConfig()`: Convierte USD a monedas ficticias usando configuración
-- `convertRealToFictionalCurrencyWithConfig()`: Convierte monedas reales a ficticias usando configuración  
+- `convertRealToFictionalCurrencyWithConfig()`: Convierte monedas reales a ficticias usando configuración
 - `formatFictionalCurrencyWithConfig()`: Formatea monedas ficticias usando configuración
 
 ### Funciones legacy (mantenidas para compatibilidad)
 
-- `convertUSDToFictionalCurrency()` 
+- `convertUSDToFictionalCurrency()`
 - `convertRealToFictionalCurrency()`
 - `formatFictionalCurrency()`
 
@@ -169,18 +174,22 @@ El código mantiene compatibilidad total hacia atrás. Si la configuración JSON
 ## Componentes Actualizados
 
 ### `CurrencySelector`
+
 - Ahora carga las opciones de monedas desde la configuración JSON
 - Fallback automático a constantes legacy si falla la carga
 
-### `ConversionResult` 
+### `ConversionResult`
+
 - Utiliza la configuración para formatear y mostrar resultados
 - Íconos y nombres dinámicos basados en la configuración
 
 ### `ExchangeRatesDisplay`
+
 - Construye la lista de monedas dinámicamente desde la configuración
 - Soporte para monedas ficticias y reales configurables
 
 ### `useCurrencyConverter`
+
 - Utiliza funciones de conversión basadas en configuración
 - Fallback automático a funciones legacy
 
@@ -196,16 +205,18 @@ El código mantiene compatibilidad total hacia atrás. Si la configuración JSON
 ## Cómo Agregar una Nueva Moneda
 
 ### Moneda Real
+
 ```json
 "EUR": {
   "code": "EUR",
-  "name": "Euro", 
+  "name": "Euro",
   "symbol": "€",
   "isBase": false
 }
 ```
 
 ### Moneda Ficticia
+
 ```json
 "nueva_moneda": {
   "code": "nueva_moneda",
@@ -218,6 +229,7 @@ El código mantiene compatibilidad total hacia atrás. Si la configuración JSON
 ```
 
 ### Regla de Conversión
+
 ```json
 "nueva_moneda": {
   "baseUnit": false,
@@ -233,6 +245,7 @@ El código mantiene compatibilidad total hacia atrás. Si la configuración JSON
 ## Testing
 
 La aplicación mantiene toda la funcionalidad original:
+
 - Conversión de monedas reales a ficticias
 - Visualización de tasas de cambio
 - Formateo correcto de resultados

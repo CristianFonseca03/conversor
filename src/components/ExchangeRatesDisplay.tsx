@@ -12,7 +12,7 @@ export const ExchangeRatesDisplay = ({
 }: ExchangeRatesDisplayProps) => {
   const { getAllFictionalCurrencies } = useFictionalCurrencies();
   const { getAllRealCurrencies } = useRealCurrencies();
-  
+
   if (isLoading) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 w-80">
@@ -38,28 +38,34 @@ export const ExchangeRatesDisplay = ({
   // Get fictional currencies from configuration
   const fictionalCurrencies = getAllFictionalCurrencies();
   const realCurrencies = getAllRealCurrencies();
-  
+
   // Build currency display data dynamically
   const currencies = [
     // Fictional currencies from configuration
-    ...fictionalCurrencies.map(currency => ({
+    ...fictionalCurrencies.map((currency) => ({
       emoji: currency.icon,
-      name: currency.name,
-      description: "Moneda Ficticia",
-      rate: `1 ${currency.name} = $${currency.usdValue} USD`,
+      name: currency.code,
+      description: currency.name,
+      rate: `1 ${currency.code} = $${currency.usdValue} USD`,
       flag: null,
-      color: currency.color,
+      colors: currency.colors,
     })),
     // Real currencies from configuration
     ...realCurrencies
-      .filter(currency => !currency.isBase) // Exclude base currency
-      .map(currency => ({
+      .filter((currency) => !currency.isBase) // Exclude base currency
+      .map((currency) => ({
         emoji: null,
         name: currency.code,
         description: currency.name,
-        rate: `${rates ? Math.round(Number(rates[currency.code as keyof typeof rates]) || 0) : 0} ${currency.code} = $1 USD`,
+        rate: `${
+          rates
+            ? Math.round(
+                Number(rates[currency.code as keyof typeof rates]) || 0
+              )
+            : 0
+        } ${currency.code} = $1 USD`,
         flag: currency.flag,
-        color: currency.color,
+        colors: currency.colors,
       })),
   ];
 
@@ -74,7 +80,11 @@ export const ExchangeRatesDisplay = ({
         {currencies.map((currency, index) => (
           <div
             key={index}
-            className={`flex items-center justify-between p-4 rounded-lg border-l-4 ${currency.color} transition-all hover:shadow-md`}
+            className="flex items-center justify-between p-4 rounded-lg border-l-4 transition-all hover:shadow-md"
+            style={{
+              borderLeftColor: currency.colors.border,
+              backgroundColor: currency.colors.background,
+            }}
           >
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <span className="text-2xl flex-shrink-0">

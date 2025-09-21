@@ -3,7 +3,7 @@
  */
 
 import type { ExchangeRates, CurrencyConfiguration } from "../types";
-import currencyConfigData from '../data/currencies.json';
+import currencyConfigData from "../data/currencies.json";
 
 // Fixed exchange rates (in production, this would come from a real API)
 const FIXED_EXCHANGE_RATES: ExchangeRates = {
@@ -19,7 +19,9 @@ const FIXED_EXCHANGE_RATES: ExchangeRates = {
 function getBaseCurrency(): string {
   try {
     const config = currencyConfigData as CurrencyConfiguration;
-    const baseCurrency = Object.values(config.realCurrencies).find(currency => currency.isBase);
+    const baseCurrency = Object.values(config.realCurrencies).find(
+      (currency) => currency.isBase
+    );
     return baseCurrency?.code || "USD";
   } catch {
     return "USD";
@@ -51,7 +53,7 @@ export function convertToUSD(
   rates: ExchangeRates
 ): number {
   const baseCurrency = getBaseCurrency();
-  
+
   if (fromCurrency === baseCurrency) {
     return amount;
   }

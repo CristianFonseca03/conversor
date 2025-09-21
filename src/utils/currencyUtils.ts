@@ -13,7 +13,7 @@ import type {
 } from "../types";
 
 // Import configuration JSON
-import currencyConfigData from '../data/currencies.json';
+import currencyConfigData from "../data/currencies.json";
 
 // Helper function to get configuration
 function getCurrencyConfig(): CurrencyConfiguration | null {
@@ -68,8 +68,9 @@ export function convertUSDToFictionalCurrencyWithConfig(
   }
 
   // Get fictional currencies sorted by USD value (highest first)
-  const currencies = Object.values(config.fictionalCurrencies)
-    .sort((a, b) => b.usdValue - a.usdValue);
+  const currencies = Object.values(config.fictionalCurrencies).sort(
+    (a, b) => b.usdValue - a.usdValue
+  );
 
   // Initialize result
   const result: FictionalCurrency = {
@@ -83,17 +84,17 @@ export function convertUSDToFictionalCurrencyWithConfig(
   // Calculate each currency denomination
   for (const currency of currencies) {
     const amount = Math.floor(remaining / currency.usdValue);
-    remaining = remaining - (amount * currency.usdValue);
-    
+    remaining = remaining - amount * currency.usdValue;
+
     // Map to result object based on currency code (lowercase)
     switch (currency.code.toLowerCase()) {
-      case 'silksong':
+      case "slk":
         result.silksongs = amount;
         break;
-      case 'balatro':
+      case "blt":
         result.balatros = amount;
         break;
-      case 'gansito':
+      case "gns":
         result.gansitos = amount;
         break;
     }
@@ -137,7 +138,10 @@ export function convertRealToFictionalCurrencyWithConfig(
   }
 
   // Convert USD to fictional currency using configuration
-  const fictionalCurrency = convertUSDToFictionalCurrencyWithConfig(usdEquivalent, config);
+  const fictionalCurrency = convertUSDToFictionalCurrencyWithConfig(
+    usdEquivalent,
+    config
+  );
 
   return {
     originalAmount: amount,
@@ -161,20 +165,21 @@ export function formatFictionalCurrencyWithConfig(
   const parts: string[] = [];
 
   // Get currencies in display order
-  const currencies = Object.values(config.fictionalCurrencies)
-    .sort((a, b) => a.order - b.order);
+  const currencies = Object.values(config.fictionalCurrencies).sort(
+    (a, b) => a.order - b.order
+  );
 
   for (const currency of currencies) {
     let amount: number;
-    
+
     switch (currency.code) {
-      case 'silksong':
+      case "silksong":
         amount = fictional.silksongs;
         break;
-      case 'balatro':
+      case "balatro":
         amount = fictional.balatros;
         break;
-      case 'gansito':
+      case "gansito":
         amount = fictional.gansitos;
         break;
       default:
@@ -190,10 +195,11 @@ export function formatFictionalCurrencyWithConfig(
   if (parts.length === 0) {
     // Try to get the base currency (smallest unit) for the fallback
     const baseCurrencies = Object.values(config.fictionalCurrencies)
-      .filter(c => config.conversionRules[c.code]?.baseUnit)
+      .filter((c) => config.conversionRules[c.code]?.baseUnit)
       .sort((a, b) => a.usdValue - b.usdValue);
-    
-    const baseCurrency = baseCurrencies[0] || config.fictionalCurrencies['gansito'];
+
+    const baseCurrency =
+      baseCurrencies[0] || config.fictionalCurrencies["gansito"];
     if (baseCurrency) {
       return `0 ${baseCurrency.icon} ${baseCurrency.namePlural.toLowerCase()}`;
     }
@@ -265,7 +271,12 @@ export function convertRealToFictionalCurrency(
   // Try to use configuration first
   const config = getCurrencyConfig();
   if (config) {
-    return convertRealToFictionalCurrencyWithConfig(amount, fromCurrency, exchangeRates, config);
+    return convertRealToFictionalCurrencyWithConfig(
+      amount,
+      fromCurrency,
+      exchangeRates,
+      config
+    );
   }
 
   // Legacy conversion logic
